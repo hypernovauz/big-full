@@ -53,8 +53,8 @@
       <table class="table table-bordered table-hover">
         <thead class="table-light">
           <tr>
+            <th class="table-info">Наименование товара</th>
             <th class="table-info">Категория</th>
-            <th class="table-info">Категория 2</th>
             <th class="table-info">Имя</th>
             <th class="table-info">Модель</th>
             <th class="table-info">Длина</th>
@@ -66,7 +66,7 @@
           <% products.forEach(product => { %>
           <tr>
             <td><%= product.category %></td>
-            <td><%= product.selectCategory %></td>
+            <td><%= product.writeCategory %></td>
             <td><%= product.name %></td>
             <td><%= product.model %></td>
             <td><%= product.length %></td>
@@ -125,42 +125,33 @@
                   for="newCategory"
                   class="form-label"
                   style="font-weight: bold"
-                  >Категория:</label
+                  >Наименование товара:</label
                 >
                 <select class="form-select" id="newCategory" name="newCategory">
                   <option value="dvuxtavr">Dvuxtavr</option>
-                  <option value="shveller">Shveller</option>
+                  <option value="shveller">Shvellir</option>
                   <option value="ugalok">Ugalok</option>
                   <option value="truba">Truba</option>
-                  <option value="shveller">Shveller</option>
+                  <option value="list">List</option>
                   <option value="armatura">Armatura</option>
                   <option value="kvadrat-profil">Kvadrat profil</option>
                   <option value="kvadrat-prut">Kvadrat prut</option>
                   <option value="prut">Prut</option>
+                  <option value="palasa">Palasa</option>
+                  <option value="planka">Planka</option>
                 </select>
               </div>
               <div class="mb-3">
-                <label
-                  for="newSelectCategory"
-                  class="form-label"
-                  style="font-weight: bold"
-                  >Категория 2:</label
+                <label for="newWriteCategory" class="form-label" style="font-weight: bold"
+                  >Категория:</label
                 >
-                <select
-                  class="form-select"
-                  id="newSelectCategory"
-                  name="newSelectCategory"
+                <input
+                  type="text"
+                  class="form-control"
+                  id="newWriteCategory"
+                  name="newWriteCategory"
                   required
-                >
-                  <% if (categories && categories.length) { %> <%
-                  categories.forEach(category => { %>
-                  <option value="<%= category.category %>">
-                    <%= category.category %>
-                  </option>
-                  <% }); %> <% } else { %>
-                  <option value="" disabled>Нет доступных категорий</option>
-                  <% } %>
-                </select>
+                />
               </div>
               <div class="mb-3">
                 <label for="newName" class="form-label" style="font-weight: bold"
@@ -174,6 +165,7 @@
                   required
                 />
               </div>
+
               <div class="mb-3">
                 <label for="newModel" class="form-label" style="font-weight: bold"
                   >Модель:</label
@@ -224,8 +216,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Edit Modal -->
     <div
       class="modal fade"
       id="editModal"
@@ -257,7 +247,7 @@
                   for="updatedCategory"
                   class="form-label"
                   style="font-weight: bold"
-                  >Категория:</label
+                  >Наименование товара:</label
                 >
                 <select
                   class="form-select"
@@ -265,40 +255,33 @@
                   name="updatedCategory"
                 >
                   <option value="dvuxtavr">Dvuxtavr</option>
-                  <option value="shveller">Shveller</option>
+                  <option value="shveller">Shvellir</option>
                   <option value="ugalok">Ugalok</option>
                   <option value="truba">Truba</option>
-                  <option value="shveller">Shveller</option>
+                  <option value="list">List</option>
                   <option value="armatura">Armatura</option>
                   <option value="kvadrat-profil">Kvadrat profil</option>
                   <option value="kvadrat-prut">Kvadrat prut</option>
                   <option value="prut">Prut</option>
+                  <option value="palasa">Palasa</option>
+                  <option value="planka">Planka</option>
                 </select>
               </div>
               <div class="mb-3">
                 <label
-                  for="updatedSelectCategory"
+                  for="updatedWriteCategory"
                   class="form-label"
                   style="font-weight: bold"
                   >Категория:</label
                 >
-                <select
-                  class="form-select"
-                  id="updatedSelectCategory"
-                  name="updatedSelectCategory"
+                <input
+                  type="text"
+                  class="form-control"
+                  id="updatedWriteCategory"
+                  name="updatedWriteCategory"
                   required
-                >
-                  <% if (categories && categories.length) { %> <%
-                  categories.forEach(category => { %>
-                  <option value="<%= category.category %>">
-                    <%= category.category %>
-                  </option>
-                  <% }); %> <% } else { %>
-                  <option value="" disabled>Нет доступных категорий</option>
-                  <% } %>
-                </select>
+                />
               </div>
-              <!-- Other Form Fields -->
               <div class="mb-3">
                 <label
                   for="updatedName"
@@ -391,7 +374,7 @@
           })
           .then((product) => {
             document.getElementById("updatedCategory").value = product.category;
-            document.getElementById("updatedSelectCategory").value = product.selectCategory;
+            document.getElementById("updatedWriteCategory").value = product.writeCategory;
             document.getElementById("updatedName").value = product.name;
             document.getElementById("updatedModel").value = product.model;
             document.getElementById("updatedLength").value = product.length;

@@ -6,7 +6,6 @@ const methodOverride = require("method-override");
 const session = require("express-session");
 const authRoutes = require("./routes/authRoutes");
 const blogRoutes = require("./routes/blogRoutes");
-const categoryRoutes = require("./routes/categoryRoutes");
 const productRoutes = require("./routes/productRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const bodyParser = require("body-parser");
@@ -18,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.set("views", path.join(__dirname, "dist", "views"));
+// app.set("views", path.join(__dirname, "dist", "views"));
 app.use(express.static(path.join(__dirname, "dist")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
@@ -45,7 +44,6 @@ mongoose
     app.use("/", adminRoutes);
     app.use("/api/auth", authRoutes);
     app.use("/api/blogs", blogRoutes);
-    app.use("/api/categories", categoryRoutes);
     app.use("/api/products", productRoutes);
 
     // Start the server

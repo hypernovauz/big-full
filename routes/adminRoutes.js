@@ -3,7 +3,6 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const Blog = require("../models/Blog");
-const Category = require("../models/Category");
 const Product = require("../models/Product");
 const uuid = require("uuid");
 
@@ -143,79 +142,11 @@ router.get("/blogs/delete/:blogId", isAuthenticated, async (req, res) => {
   }
 });
 
-// categories route codes
-router.get("/categories", isAuthenticated, async (req, res) => {
-  try {
-    const categories = await Category.find();
-    return res.render("adminCategories", { categories });
-  } catch (error) {
-    return res.status(500).render("error", { error: "Internal Server Error" });
-  }
-});
-
-router.post("/categories/create", isAuthenticated, async (req, res) => {
-  try {
-    const { newCategory } = req.body;
-    if (!newCategory) {
-      return res.status(400).send("Category is required");
-    }
-    const category = new Category({
-      category: newCategory,
-    });
-    await category.save();
-    return res.redirect("/categories");
-  } catch (error) {
-    return res.status(500).render("error", { error: "Internal Server Error" });
-  }
-});
-
-router.post(
-  "/categories/update/:categoryId",
-  isAuthenticated,
-  async (req, res) => {
-    try {
-      const categoryId = req.params.categoryId;
-      const { updatedCategory } = req.body;
-      const category = await Category.findById(categoryId);
-      if (!category) {
-        return res.status(404).send("Category not found");
-      }
-      category.category = updatedCategory;
-      await category.save();
-      return res.redirect("/categories");
-    } catch (error) {
-      return res
-        .status(500)
-        .render("error", { error: "Internal Server Error" });
-    }
-  }
-);
-
-router.get(
-  "/categories/delete/:categoryId",
-  isAuthenticated,
-  async (req, res) => {
-    try {
-      const categoryId = req.params.categoryId;
-      const deletedCategory = await Category.findByIdAndDelete(categoryId);
-      if (!deletedCategory) {
-        return res.status(404).send("Category not found");
-      }
-      return res.redirect("/categories");
-    } catch (error) {
-      return res
-        .status(500)
-        .render("error", { error: "Internal Server Error" });
-    }
-  }
-);
-
 // Vacancies route codes
 router.get("/products", isAuthenticated, async (req, res) => {
   try {
     const products = await Product.find();
-    const categories = await Category.find();
-    res.render("adminProducts", { products, categories });
+    res.render("adminProducts", { products });
   } catch (error) {
     console.error(error);
     res.status(500).render("error", { error: "Internal Server Error" });
@@ -238,13 +169,13 @@ router.get('/products/:productId',isAuthenticated, async (req, res) => {
 
 router.post("/products/create", isAuthenticated, async (req, res) => {
   try {
-    const { newCategory, newSelectCategory, newName, newModel, newPrice, newLength } = req.body;
-    if (!newCategory || !newSelectCategory || !newName || !newModel || !newPrice || !newLength) {
+    const { newCategory, newWriteCategory, newName, newModel, newPrice, newLength } = req.body;
+    if (!newCategory || !newWriteCategory || !newName || !newModel || !newPrice || !newLength) {
       return res.status(400).send("All fields are required");
     }
     const newProduct = new Product({
       category: newCategory,
-      selectCategory: newSelectCategory,
+      writeCategory: newWriteCategory,
       name: newName,
       price: newPrice,
       model: newModel,
@@ -265,7 +196,7 @@ router.post(
       const productId = req.params.productId;
       const {
         updatedCategory,
-        updatedSelectCategory,
+        updatedWriteCategory,
         updatedName,
         updatedModel,
         updatedLength,
@@ -273,7 +204,7 @@ router.post(
       } = req.body;
       if (
         !updatedCategory ||
-        !updatedSelectCategory ||
+        !updatedWriteCategory ||
         !updatedName ||
         !updatedModel ||
         !updatedLength ||
@@ -286,7 +217,7 @@ router.post(
         return res.status(404).send("Product not found");
       }
       product.category = updatedCategory;
-      product.selectCategory = updatedSelectCategory;
+      product.writeCategory = updatedWriteCategory;
       product.name = updatedName;
       product.model = updatedModel;
       product.length = updatedLength;

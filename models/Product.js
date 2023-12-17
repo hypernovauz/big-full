@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
-  selectCategory: {
+  writeCategory: {
     type: String,
   },
   category: {

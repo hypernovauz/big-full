@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#" style="font-weight: bold"
+          >Система управления продуктами</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="/dashboard"
+                style="color: red; font-weight: bold; font-size: 20px"
+                >Назад</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <br />
+      <button
+        class="btn btn-primary mb-3"
+        onclick="openAddModal()"
+        style="font-weight: bold"
+      >
+        Добавить новый продукт
+      </button>
+      <table class="table table-bordered table-hover">
+        <thead class="table-light">
+          <tr>
+            <th class="table-info">Категория</th>
+            <th class="table-info">Категория 2</th>
+            <th class="table-info">Имя</th>
+            <th class="table-info">Модель</th>
+            <th class="table-info">Длина</th>
+            <th class="table-info">Цена</th>
+            <th class="table-info">Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(product => { %>
+          <tr>
+            <td><%= product.category %></td>
+            <td><%= product.selectCategory %></td>
+            <td><%= product.name %></td>
+            <td><%= product.model %></td>
+            <td><%= product.length %></td>
+            <td><%= product.price %></td>
+            <td>
+              <button
+                class="btn btn-info btn-sm"
+                style="font-weight: bold; color: white"
+                onclick="openEditModal('<%= product._id %>')"
+              >
+                Редактировать
+              </button>
+              <button
+                class="btn btn-danger btn-sm"
+                style="font-weight: bold"
+                onclick="deleteProduct('<%= product._id %>')"
+              >
+                Удалить
+              </button>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Add Modal -->
+    <div
+      class="modal fade"
+      id="addModal"
+      tabindex="-1"
+      aria-labelledby="addModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title"
+              id="addModalLabel"
+              style="font-weight: bold"
+            >
+              Добавить новый продукт
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form action="/products/create" method="post">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label
+                  for="newCategory"
+                  class="form-label"
+                  style="font-weight: bold"
+                  >Категория:</label
+                >
+                <select class="form-select" id="newCategory" name="newCategory">
+                  <option value="dvuxtavr">Dvuxtavr</option>
+                  <option value="shveller">Shveller</option>
+                  <option value="ugalok">Ugalok</option>
+                  <option value="truba">Truba</option>
+                  <option value="shveller">Shveller</option>
+                  <option value="armatura">Armatura</option>
+                  <option value="kvadrat-profil">Kvadrat profil</option>
+                  <option value="kvadrat-prut">Kvadrat prut</option>
+                  <option value="prut">Prut</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label
+                  for="newSelectCategory"
+                  class="form-label"
+                  style="font-weight: bold"
+                  >Категория 2:</label
+                >
+                <select
+                  class="form-select"
+                  id="newSelectCategory"
+                  name="newSelectCategory"
+                  required
+                >
+                  <% if (categories && categories.length) { %> <%
+                  categories.forEach(category => { %>
+                  <option value="<%= category.category %>">
+                    <%= category.category %>
+                  </option>
+                  <% }); %> <% } else { %>
+                  <option value="" disabled>Нет доступных категорий</option>
+                  <% } %>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="newName" class="form-label" style="font-weight: bold"
+                  >Имя:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="newName"
+                  name="newName"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="newModel" class="form-label" style="font-weight: bold"
+                  >Модель:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="newModel"
+                  name="newModel"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="newLength" class="form-label" style="font-weight: bold"
+                  >Длина:</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="newLength"
+                  name="newLength"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="newPrice" class="form-label" style="font-weight: bold"
+                  >Цена:</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="newPrice"
+                  name="newPrice"
+                  required
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="font-weight: bold"
+              >
+                Добавить продукт
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title"
+              id="editModalLabel"
+              style="font-weight: bold"
+            >
+              Редактировать продукт
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="editForm" method="post">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label
+                  for="updatedCategory"
+                  class="form-label"
+                  style="font-weight: bold"
+                  >Категория:</label
+                >
+                <select
+                  class="form-select"
+                  id="updatedCategory"
+                  name="updatedCategory"
+                >
+                  <option value="dvuxtavr">Dvuxtavr</option>
+                  <option value="shveller">Shveller</option>
+                  <option value="ugalok">Ugalok</option>
+                  <option value="truba">Truba</option>
+                  <option value="shveller">Shveller</option>
+                  <option value="armatura">Armatura</option>
+                  <option value="kvadrat-profil">Kvadrat profil</option>
+                  <option value="kvadrat-prut">Kvadrat prut</option>
+                  <option value="prut">Prut</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label
+                  for="updatedSelectCategory"
+                  class="form-label"
+                  style="font-weight: bold"
+                  >Категория:</label
+                >
+                <select
+                  class="form-select"
+                  id="updatedSelectCategory"
+                  name="updatedSelectCategory"
+                  required
+                >
+                  <% if (categories && categories.length) { %> <%
+                  categories.forEach(category => { %>
+                  <option value="<%= category.category %>">
+                    <%= category.category %>
+                  </option>
+                  <% }); %> <% } else { %>
+                  <option value="" disabled>Нет доступных категорий</option>
+                  <% } %>
+                </select>
+              </div>
+              <!-- Other Form Fields -->
+              <div class="mb-3">
+                <label
+                  for="updatedName"
+                  class="form-label"
+                  style="font-weight: bold"
+                  >Имя:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="updatedName"
+                  name="updatedName"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label
+                  for="updatedModel"
+                  class="form-label"
+                  style="font-weight: bold"
+                  >Модель:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="updatedModel"
+                  name="updatedModel"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label
+                  for="updatedLength"
+                  class="form-label"
+                  style="font-weight: bold"
+                  >Длина:</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="updatedLength"
+                  name="updatedLength"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label
+                  for="updatedPrice"
+                  class="form-label"
+                  style="font-weight: bold"
+                  >Цена:</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="updatedPrice"
+                  name="updatedPrice"
+                  required
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                style="font-weight: bold"
+              >
+                Обновить продукт
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      function openAddModal() {
+        new bootstrap.Modal(document.getElementById("addModal")).show();
+      }
+      function closeAddModal() {
+        new bootstrap.Modal(document.getElementById("addModal")).hide();
+      }
+      function openEditModal(productId) {
+        fetch(`/products/${productId}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((product) => {
+            document.getElementById("updatedCategory").value = product.category;
+            document.getElementById("updatedSelectCategory").value = product.selectCategory;
+            document.getElementById("updatedName").value = product.name;
+            document.getElementById("updatedModel").value = product.model;
+            document.getElementById("updatedLength").value = product.length;
+            document.getElementById("updatedPrice").value = product.price;
+            document.getElementById("editForm").action = `/products/update/${productId}`;
+            new bootstrap.Modal(document.getElementById("editModal")).show();
+          })
+          .catch((error) => {
+            console.error("Error fetching product details:", error);
+          });
+      }
+      
+      function closeEditModal() {
+        new bootstrap.Modal(document.getElementById("editModal")).hide();
+      }
+      function deleteProduct(productId) {
+        Swal.fire({
+          title: "Вы уверены?",
+          text: "Вы действительно хотите удалить этот продукты?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Да, удалить!",
+          cancelButtonText: "Отмена",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = `/products/delete/${productId}`;
+          }
+        });
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

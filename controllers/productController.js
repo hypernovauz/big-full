@@ -8,8 +8,6 @@ exports.getAllProducts = async (req, res) => {
         _id: product._id,
         category: product.category,
         selectCategory: product.selectCategory,
-        name: product.name,
-        model: product.model,
         price: product.price,
         length: product.length,
       }))
@@ -29,8 +27,6 @@ exports.getProductById = async (req, res) => {
       _id: product._id,
       category: product.category,
       selectCategory: product.selectCategory,
-      name: product.name,
-      model: product.model,
       price: product.price,
       length: product.length,
     });
@@ -44,8 +40,6 @@ exports.createProduct = async (req, res) => {
     const newProduct = new Product({
       selectCategory: req.body.selectCategory,
       category: req.body.category,
-      name: req.body.name,
-      model: req.body.model,
       length: req.body.length,
       price: req.body.price,
     });
@@ -63,8 +57,6 @@ exports.updateProduct = async (req, res) => {
       {
         selectCategory: req.body.selectCategory,
         category: req.body.category,
-        name: req.body.name,
-        model: req.body.model,
         length: req.body.length,
         price: req.body.price,
       },
@@ -76,10 +68,8 @@ exports.updateProduct = async (req, res) => {
     return res.json({
       _id: updatedProduct._id,
       selectCategory: updatedProduct.selectCategory,
-      name: updatedProduct.name,
       category: updatedProduct.category,
       price: updatedProduct.price,
-      model: updatedProduct.model,
       length: updatedProduct.length,
     });
   } catch (error) {

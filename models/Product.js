@@ -6,14 +6,8 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
   },
-  name: {
-    type: String,
-  },
-  model: {
-    type: String,
-  },
   length: {
-    type: Number,
+    type: String,
   },
   price: {
     type: Number,

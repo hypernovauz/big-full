@@ -55,9 +55,7 @@
           <tr>
             <th class="table-info">Наименование товара</th>
             <th class="table-info">Категория</th>
-            <th class="table-info">Имя</th>
-            <th class="table-info">Модель</th>
-            <th class="table-info">Длина</th>
+            <th class="table-info">Толщина</th>
             <th class="table-info">Цена</th>
             <th class="table-info">Действия</th>
           </tr>
@@ -67,8 +65,6 @@
           <tr>
             <td><%= product.category %></td>
             <td><%= product.writeCategory %></td>
-            <td><%= product.name %></td>
-            <td><%= product.model %></td>
             <td><%= product.length %></td>
             <td><%= product.price %></td>
             <td>
@@ -154,33 +150,8 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="newName" class="form-label" style="font-weight: bold"
-                  >Имя:</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="newName"
-                  name="newName"
-                  required
-                />
-              </div>
-
-              <div class="mb-3">
-                <label for="newModel" class="form-label" style="font-weight: bold"
-                  >Модель:</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="newModel"
-                  name="newModel"
-                  required
-                />
-              </div>
-              <div class="mb-3">
                 <label for="newLength" class="form-label" style="font-weight: bold"
-                  >Длина:</label
+                  >Толщина:</label
                 >
                 <input
                   type="number"
@@ -284,40 +255,10 @@
               </div>
               <div class="mb-3">
                 <label
-                  for="updatedName"
-                  class="form-label"
-                  style="font-weight: bold"
-                  >Имя:</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="updatedName"
-                  name="updatedName"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label
-                  for="updatedModel"
-                  class="form-label"
-                  style="font-weight: bold"
-                  >Модель:</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="updatedModel"
-                  name="updatedModel"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label
                   for="updatedLength"
                   class="form-label"
                   style="font-weight: bold"
-                  >Длина:</label
+                  >Толщина:</label
                 >
                 <input
                   type="number"
@@ -375,8 +316,6 @@
           .then((product) => {
             document.getElementById("updatedCategory").value = product.category;
             document.getElementById("updatedWriteCategory").value = product.writeCategory;
-            document.getElementById("updatedName").value = product.name;
-            document.getElementById("updatedModel").value = product.model;
             document.getElementById("updatedLength").value = product.length;
             document.getElementById("updatedPrice").value = product.price;
             document.getElementById("editForm").action = `/products/update/${productId}`;

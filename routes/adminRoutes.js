@@ -169,16 +169,14 @@ router.get('/products/:productId',isAuthenticated, async (req, res) => {
 
 router.post("/products/create", isAuthenticated, async (req, res) => {
   try {
-    const { newCategory, newWriteCategory, newName, newModel, newPrice, newLength } = req.body;
-    if (!newCategory || !newWriteCategory || !newName || !newModel || !newPrice || !newLength) {
+    const { newCategory, newWriteCategory, newPrice, newLength } = req.body;
+    if (!newCategory || !newWriteCategory || !newPrice || !newLength) {
       return res.status(400).send("All fields are required");
     }
     const newProduct = new Product({
       category: newCategory,
       writeCategory: newWriteCategory,
-      name: newName,
       price: newPrice,
-      model: newModel,
       length: newLength,
     });
     await newProduct.save();
@@ -197,16 +195,12 @@ router.post(
       const {
         updatedCategory,
         updatedWriteCategory,
-        updatedName,
-        updatedModel,
         updatedLength,
         updatedPrice,
       } = req.body;
       if (
         !updatedCategory ||
         !updatedWriteCategory ||
-        !updatedName ||
-        !updatedModel ||
         !updatedLength ||
         !updatedPrice
       ) {
@@ -218,8 +212,6 @@ router.post(
       }
       product.category = updatedCategory;
       product.writeCategory = updatedWriteCategory;
-      product.name = updatedName;
-      product.model = updatedModel;
       product.length = updatedLength;
       product.price = updatedPrice;
       await product.save();

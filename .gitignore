@@ -56,7 +56,6 @@ $RECYCLE.BIN/
 *.tsbuildinfo
 
 # NestJS
-.env
 
 # Windows Installer files
 *.cab

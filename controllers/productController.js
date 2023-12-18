@@ -6,10 +6,10 @@ exports.getAllProducts = async (req, res) => {
     return res.json(
       products.map((product) => ({
         _id: product._id,
+        name: product.name,
         category: product.category,
-        selectCategory: product.selectCategory,
         price: product.price,
-        length: product.length,
+        qalinligi: product.qalinligi,
       }))
     );
   } catch (error) {
@@ -25,10 +25,10 @@ exports.getProductById = async (req, res) => {
     }
     return res.json({
       _id: product._id,
+      name: product.name,
       category: product.category,
-      selectCategory: product.selectCategory,
       price: product.price,
-      length: product.length,
+      qalinligi: product.qalinligi,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
@@ -38,9 +38,9 @@ exports.getProductById = async (req, res) => {
 exports.createProduct = async (req, res) => {
   try {
     const newProduct = new Product({
-      selectCategory: req.body.selectCategory,
+      name: req.body.name,
       category: req.body.category,
-      length: req.body.length,
+      qalinligi: req.body.qalinligi,
       price: req.body.price,
     });
     const savedProduct = await newProduct.save();
@@ -55,9 +55,9 @@ exports.updateProduct = async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
       {
-        selectCategory: req.body.selectCategory,
+        name: req.body.name,
         category: req.body.category,
-        length: req.body.length,
+        qalinligi: req.body.qalinligi,
         price: req.body.price,
       },
       { new: true }
@@ -67,10 +67,10 @@ exports.updateProduct = async (req, res) => {
     }
     return res.json({
       _id: updatedProduct._id,
-      selectCategory: updatedProduct.selectCategory,
+      name: updatedProduct.name,
       category: updatedProduct.category,
       price: updatedProduct.price,
-      length: updatedProduct.length,
+      qalinligi: updatedProduct.qalinligi,
     });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });

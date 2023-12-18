@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema({
-  writeCategory: {
-    type: String,
-  },
   category: {
     type: String,
   },
-  length: {
+  name: {
+    type: String,
+  },
+  qalinligi: {
     type: String,
   },
   price: {

@@ -63,9 +63,9 @@
         <tbody>
           <% products.forEach(product => { %>
           <tr>
+            <td><%= product.name %></td>
             <td><%= product.category %></td>
-            <td><%= product.writeCategory %></td>
-            <td><%= product.length %></td>
+            <td><%= product.qalinligi %></td>
             <td><%= product.price %></td>
             <td>
               <button
@@ -118,12 +118,12 @@
             <div class="modal-body">
               <div class="mb-3">
                 <label
-                  for="newCategory"
+                  for="newName"
                   class="form-label"
                   style="font-weight: bold"
                   >Наименование товара:</label
                 >
-                <select class="form-select" id="newCategory" name="newCategory">
+                <select class="form-select" id="newName" name="newName">
                   <option value="dvuxtavr">Dvuxtavr</option>
                   <option value="shveller">Shvellir</option>
                   <option value="ugalok">Ugalok</option>
@@ -138,26 +138,26 @@
                 </select>
               </div>
               <div class="mb-3">
-                <label for="newWriteCategory" class="form-label" style="font-weight: bold"
+                <label for="newCategory" class="form-label" style="font-weight: bold"
                   >Категория:</label
                 >
                 <input
                   type="text"
                   class="form-control"
-                  id="newWriteCategory"
-                  name="newWriteCategory"
+                  id="newCategory"
+                  name="newCategory"
                   required
                 />
               </div>
               <div class="mb-3">
-                <label for="newLength" class="form-label" style="font-weight: bold"
+                <label for="newQalinligi" class="form-label" style="font-weight: bold"
                   >Толщина:</label
                 >
                 <input
                   type="number"
                   class="form-control"
-                  id="newLength"
-                  name="newLength"
+                  id="newQalinligi"
+                  name="newQalinligi"
                   required
                 />
               </div>
@@ -215,15 +215,15 @@
             <div class="modal-body">
               <div class="mb-3">
                 <label
-                  for="updatedCategory"
+                  for="updatedName"
                   class="form-label"
                   style="font-weight: bold"
                   >Наименование товара:</label
                 >
                 <select
                   class="form-select"
-                  id="updatedCategory"
-                  name="updatedCategory"
+                  id="updatedName"
+                  name="updatedName"
                 >
                   <option value="dvuxtavr">Dvuxtavr</option>
                   <option value="shveller">Shvellir</option>
@@ -240,7 +240,7 @@
               </div>
               <div class="mb-3">
                 <label
-                  for="updatedWriteCategory"
+                  for="updatedCategory"
                   class="form-label"
                   style="font-weight: bold"
                   >Категория:</label
@@ -248,14 +248,14 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="updatedWriteCategory"
-                  name="updatedWriteCategory"
+                  id="updatedCategory"
+                  name="updatedCategory"
                   required
                 />
               </div>
               <div class="mb-3">
                 <label
-                  for="updatedLength"
+                  for="updatedQalinligi"
                   class="form-label"
                   style="font-weight: bold"
                   >Толщина:</label
@@ -263,8 +263,8 @@
                 <input
                   type="number"
                   class="form-control"
-                  id="updatedLength"
-                  name="updatedLength"
+                  id="updatedQalinligi"
+                  name="updatedQalinligi"
                   required
                 />
               </div>
@@ -314,9 +314,9 @@
             return response.json();
           })
           .then((product) => {
+            document.getElementById("updatedName").value = product.name;
             document.getElementById("updatedCategory").value = product.category;
-            document.getElementById("updatedWriteCategory").value = product.writeCategory;
-            document.getElementById("updatedLength").value = product.length;
+            document.getElementById("updatedQalinligi").value = product.qalinligi;
             document.getElementById("updatedPrice").value = product.price;
             document.getElementById("editForm").action = `/products/update/${productId}`;
             new bootstrap.Modal(document.getElementById("editModal")).show();

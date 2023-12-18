@@ -169,15 +169,15 @@ router.get('/products/:productId',isAuthenticated, async (req, res) => {
 
 router.post("/products/create", isAuthenticated, async (req, res) => {
   try {
-    const { newCategory, newWriteCategory, newPrice, newLength } = req.body;
-    if (!newCategory || !newWriteCategory || !newPrice || !newLength) {
+    const { newName, newCategory, newPrice, newQalinligi } = req.body;
+    if (!newName || !newCategory || !newPrice || !newQalinligi) {
       return res.status(400).send("All fields are required");
     }
     const newProduct = new Product({
+      name: newName,
       category: newCategory,
-      writeCategory: newWriteCategory,
       price: newPrice,
-      length: newLength,
+      qalinligi: newQalinligi,
     });
     await newProduct.save();
     return res.redirect("/products");
@@ -193,15 +193,15 @@ router.post(
     try {
       const productId = req.params.productId;
       const {
+        updatedName,
         updatedCategory,
-        updatedWriteCategory,
-        updatedLength,
+        updatedQalinligi,
         updatedPrice,
       } = req.body;
       if (
+        !updatedName ||
         !updatedCategory ||
-        !updatedWriteCategory ||
-        !updatedLength ||
+        !updatedQalinligi ||
         !updatedPrice
       ) {
         return res.status(400).send("All fields are required");
@@ -210,9 +210,9 @@ router.post(
       if (!product) {
         return res.status(404).send("Product not found");
       }
+      product.name = updatedName;
       product.category = updatedCategory;
-      product.writeCategory = updatedWriteCategory;
-      product.length = updatedLength;
+      product.qalinligi = updatedQalinligi;
       product.price = updatedPrice;
       await product.save();
       return res.redirect("/products");

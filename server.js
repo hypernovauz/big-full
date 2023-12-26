@@ -8,6 +8,7 @@ const authRoutes = require("./routes/authRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const productRoutes = require("./routes/productRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const routes = require("./routes/routes");
 const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
@@ -26,7 +27,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(
   session({
     secret: "nrub87g84bgfy4g483gfy4",
-    resave: true,
+    resave: false,
     saveUninitialized: true,
   })
 );
@@ -43,6 +44,7 @@ mongoose
     // Routes
     app.use("/", adminRoutes);
     app.use("/api/auth", authRoutes);
+    app.use("/api/admins", routes);
     app.use("/api/blogs", blogRoutes);
     app.use("/api/products", productRoutes);
 

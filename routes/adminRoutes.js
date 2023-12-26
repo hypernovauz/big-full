@@ -5,11 +5,20 @@ const path = require("path");
 const Blog = require("../models/Blog");
 const Product = require("../models/Product");
 const uuid = require("uuid");
+const Admin = require("../models/Admin");
 
-const authenticateUser = (username, password) => {
-  const adminUsername = process.env.ADMIN_USERNAME;
-  const adminPassword = process.env.ADMIN_PASSWORD;
-  return username === adminUsername && password === adminPassword;
+const authenticateUser = async (username, password) => {
+  try {
+    const adminUser = await Admin.findOne({ username });
+    if (adminUser && adminUser.password === password) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error authenticating admin user:", error);
+    return false;
+  }
 };
 
 const isAuthenticated = (req, res, next) => {
@@ -19,15 +28,20 @@ const isAuthenticated = (req, res, next) => {
   return res.redirect("/");
 };
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { username, password } = req.body;
-  if (authenticateUser(username, password)) {
-    req.session.isAuthenticated = true;
-    return res.redirect("/dashboard");
-  } else {
-    return res.render("login", {
-      error: "Неправильное имя пользователя или пароль",
-    });
+  try {
+    if (await authenticateUser(username, password)) {
+      req.session.isAuthenticated = true;
+      return res.redirect("/dashboard");
+    } else {
+      return res.render("login", {
+        error: "Yaroqsiz foydalanuvchi nomi yoki parol",
+      });
+    }
+  } catch (error) {
+    console.error("Error during login:", error);
+    return res.status(500).render("error", { error: "Internal Server Error" });
   }
 });
 
@@ -44,10 +58,7 @@ router.get("/logout", isAuthenticated, (req, res) => {
   });
 });
 
-router.get("/dashboard", (req, res) => {
-  if (!req.session.isAuthenticated) {
-    return res.redirect("/");
-  }
+router.get("/dashboard", isAuthenticated, (req, res) => {
   return res.render("adminDashboard");
 });
 
@@ -82,7 +93,7 @@ router.post(
         return res.status(400).send("No file attached to the request");
       }
       const photoPath = req.file.path;
-      const { newTitle, newDescription  } = req.body;
+      const { newTitle, newDescription } = req.body;
       if (!newTitle || !newDescription) {
         return res.status(400).send("All inputs are required");
       }
@@ -142,7 +153,7 @@ router.get("/blogs/delete/:blogId", isAuthenticated, async (req, res) => {
   }
 });
 
-// Vacancies route codes
+// products route codes
 router.get("/products", isAuthenticated, async (req, res) => {
   try {
     const products = await Product.find();
@@ -153,17 +164,17 @@ router.get("/products", isAuthenticated, async (req, res) => {
   }
 });
 
-router.get('/products/:productId',isAuthenticated, async (req, res) => {
+router.get("/products/:productId", isAuthenticated, async (req, res) => {
   try {
     const productId = req.params.productId;
     const product = await Product.findById(productId);
     if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
     return res.json(product);
   } catch (error) {
-    console.error('Error fetching product details:', error);
-    return res.status(500).json({ error: 'Internal server error' });
+    console.error("Error fetching product details:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -192,12 +203,8 @@ router.post(
   async (req, res) => {
     try {
       const productId = req.params.productId;
-      const {
-        updatedName,
-        updatedCategory,
-        updatedQalinligi,
-        updatedPrice,
-      } = req.body;
+      const { updatedName, updatedCategory, updatedQalinligi, updatedPrice } =
+        req.body;
       if (
         !updatedName ||
         !updatedCategory ||
@@ -225,23 +232,64 @@ router.post(
   }
 );
 
-router.get(
-  "/products/delete/:productId",
-  isAuthenticated,
-  async (req, res) => {
-    try {
-      const productId = req.params.productId;
-      const deletedProduct = await Product.findByIdAndDelete(productId);
-      if (!deletedProduct) {
-        return res.status(404).send("Product not found");
-      }
-      return res.redirect("/products");
-    } catch (error) {
-      return res
-        .status(500)
-        .render("error", { error: "Internal Server Error" });
+router.get("/products/delete/:productId", isAuthenticated, async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const deletedProduct = await Product.findByIdAndDelete(productId);
+    if (!deletedProduct) {
+      return res.status(404).send("Product not found");
     }
+    return res.redirect("/products");
+  } catch (error) {
+    return res.status(500).render("error", { error: "Internal Server Error" });
   }
-);
+});
+
+router.get("/users", isAuthenticated, async (req, res) => {
+  try {
+    const users = await Admin.find();
+    return res.render("adminUsers", { users });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).render("error", { error: "Internal Server Error" });
+  }
+});
+
+router.get("/users/:userId", isAuthenticated, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await Product.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "user not found" });
+    }
+    return res.json(user);
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.post("/users/update/:userId", isAuthenticated, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { updatedUsername, updatedPassword } = req.body;
+    if (!updatedUsername || !updatedPassword) {
+      return res.status(400).send("All fields are required");
+    }
+    const user = await Admin.findById(userId);
+    if (!user) {
+      return res.status(404).send("Admin not found");
+    }
+    user.username = updatedUsername;
+    user.password = updatedPassword;
+    await user.save();
+    req.session.username = updatedUsername;
+    return res.redirect("/logout");
+  } catch (error) {
+    console.error(error);
+    return res.status(500).render("error", { error: "Internal Server Error" });
+  }
+});
+
 
 module.exports = router;

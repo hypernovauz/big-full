@@ -258,7 +258,7 @@ router.get("/users", isAuthenticated, async (req, res) => {
 router.get("/users/:userId", isAuthenticated, async (req, res) => {
   try {
     const userId = req.params.userId;
-    const user = await Product.findById(userId);
+    const user = await Admin.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "user not found" });
     }

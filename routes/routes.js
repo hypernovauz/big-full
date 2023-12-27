@@ -5,7 +5,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const router = express.Router();
 
 // Protected routes (requires authentication)
-// router.use(authMiddleware.authenticateToken);
+router.use(authMiddleware.authenticateToken);
 router.get("/", adminController.getAllAdmins);
 router.get("/:id", adminController.getAdminById);
 router.post("/", adminController.createAdmin);

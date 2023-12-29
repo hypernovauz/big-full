@@ -7,6 +7,7 @@
   <title>Admin</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="icon" href="https://index-eosin.vercel.app/bigmetal.svg" type="image/icon type" />
 </head>
 
 <body>
@@ -14,7 +15,7 @@
     <div class="container py-5 h-100">
       <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 col-lg-7 col-xl-6">
-          <img style="width: 100%;" src="https://index-eosin.vercel.app/bigmetal.svg" class="img-fluid"/>
+          <img style="width: 100%;" src="https://index-eosin.vercel.app/bigmetal.svg" class="img-fluid" />
         </div>
         <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
           <% if (error) { %>
@@ -25,13 +26,16 @@
               <form action="/" method="post">
                 <label for="username" class="form-label" style="font-weight: bold">Foydalanuvchi nomi:</label>
                 <div class="form-outline mb-4">
-                  <input type="text" class="form-control form-control-lg" id="username" name="username" required placeholder="username" />
+                  <input type="text" class="form-control form-control-lg" id="username" name="username" required
+                    placeholder="username" />
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label" for="password" style="font-weight: bold">Parol:</label>
-                  <input type="password" class="form-control form-control-lg" id="password" name="password" required placeholder="parol"/>
+                  <input type="password" class="form-control form-control-lg" id="password" name="password" required
+                    placeholder="parol" />
                 </div>
-                <button type="submit" class="btn btn-primary" style="font-weight: bold; background-color:rgb(34, 34, 175)">
+                <button type="submit" class="btn btn-primary"
+                  style="font-weight: bold; background-color:rgb(34, 34, 175)">
                   Kirish
                 </button>
               </form>

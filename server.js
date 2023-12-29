@@ -49,7 +49,7 @@ mongoose
     app.use("/api/products", productRoutes);
 
     // Start the server
-    const PORT = process.env.PORT || 3002;
+    const PORT = process.env.PORT || 3035;
     app.listen(PORT, () => {
       console.log(
         `Server is running on ${process.env.PROTOCOL}://${process.env.SERVER_IP}:${PORT}`

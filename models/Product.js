@@ -7,7 +7,7 @@ const productSchema = new mongoose.Schema({
     type: String,
   },
   qalinligi: {
-    type: String,
+    type: Number,
   },
   price: {
     type: Number,

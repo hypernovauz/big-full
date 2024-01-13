@@ -181,9 +181,6 @@ router.get("/products/:productId", isAuthenticated, async (req, res) => {
 router.post("/products/create", isAuthenticated, async (req, res) => {
   try {
     const { newName, newCategory, newPrice, newQalinligi } = req.body;
-    if (!newName || !newCategory || !newPrice || !newQalinligi) {
-      return res.status(400).send("All fields are required");
-    }
     const newProduct = new Product({
       name: newName,
       category: newCategory,
@@ -205,14 +202,6 @@ router.post(
       const productId = req.params.productId;
       const { updatedName, updatedCategory, updatedQalinligi, updatedPrice } =
         req.body;
-      if (
-        !updatedName ||
-        !updatedCategory ||
-        !updatedQalinligi ||
-        !updatedPrice
-      ) {
-        return res.status(400).send("All fields are required");
-      }
       const product = await Product.findById(productId);
       if (!product) {
         return res.status(404).send("Product not found");

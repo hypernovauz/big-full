@@ -12,10 +12,10 @@
 <body>
   <nav class="navbar bg-body-tertiary">
     <div class="container">
-      <a class="navbar-brand" href="/dashboard" style="font-weight: bold; color: black;  font-size: 24px;">
+      <a class="navbar-brand" href="/dashboard" style="font-weight: bold; color: black; font-size: 24px">
         Mahsulotlarni boshqarish paneli
       </a>
-      <a class="navbar-brand" href="/dashboard" style="font-weight: bold; color: red;">
+      <a class="navbar-brand" href="/dashboard" style="font-weight: bold; color: red">
         Orqaga
       </a>
     </div>
@@ -97,17 +97,15 @@
             </div>
             <div class="mb-3">
               <label for="newCategory" class="form-label" style="font-weight: bold">Kategoriyasi:</label>
-              <input type="text" class="form-control" id="newCategory" name="newCategory" required
-                placeholder="Kategoriyasi" />
+              <input type="text" class="form-control" id="newCategory" name="newCategory" placeholder="Kategoriyasi" />
             </div>
             <div class="mb-3">
               <label for="newQalinligi" class="form-label" style="font-weight: bold">Qalinligi:</label>
-              <input type="number" class="form-control" id="newQalinligi" name="newQalinligi" required
-                placeholder="Qalinligi" />
+              <input type="number" class="form-control" id="newQalinligi" name="newQalinligi" placeholder="Qalinligi" step="0.01" />
             </div>
             <div class="mb-3">
               <label for="newPrice" class="form-label" style="font-weight: bold">Narxi:</label>
-              <input type="number" class="form-control" id="newPrice" name="newPrice" required placeholder="Narxi" />
+              <input type="number" class="form-control" id="newPrice" name="newPrice" placeholder="Narxi" step="0.01" />
             </div>
           </div>
           <div class="modal-footer">
@@ -148,18 +146,15 @@
             </div>
             <div class="mb-3">
               <label for="updatedCategory" class="form-label" style="font-weight: bold">Kategoriyasi:</label>
-              <input type="text" class="form-control" id="updatedCategory" name="updatedCategory" required
-                placeholder="Kategoriyasi" />
+              <input type="text" class="form-control" id="updatedCategory" name="updatedCategory" placeholder="Kategoriyasi" />
             </div>
             <div class="mb-3">
               <label for="updatedQalinligi" class="form-label" style="font-weight: bold">Qalinligi:</label>
-              <input type="number" class="form-control" id="updatedQalinligi" name="updatedQalinligi" required
-                placeholder="Qalinligi" />
+              <input type="number" class="form-control" id="updatedQalinligi" name="updatedQalinligi" placeholder="Qalinligi" step="0.01" />
             </div>
             <div class="mb-3">
               <label for="updatedPrice" class="form-label" style="font-weight: bold">Narxi:</label>
-              <input type="number" class="form-control" id="updatedPrice" name="updatedPrice" required
-                placeholder="Narxi" />
+              <input type="number" class="form-control" id="updatedPrice" name="updatedPrice" placeholder="Narxi" step="0.01" />
             </div>
           </div>
           <div class="modal-footer">
@@ -190,9 +185,12 @@
         .then((product) => {
           document.getElementById("updatedName").value = product.name;
           document.getElementById("updatedCategory").value = product.category;
-          document.getElementById("updatedQalinligi").value = product.qalinligi;
+          document.getElementById("updatedQalinligi").value =
+            product.qalinligi;
           document.getElementById("updatedPrice").value = product.price;
-          document.getElementById("editForm").action = `/products/update/${productId}`;
+          document.getElementById(
+            "editForm"
+          ).action = `/products/update/${productId}`;
           new bootstrap.Modal(document.getElementById("editModal")).show();
         })
         .catch((error) => {

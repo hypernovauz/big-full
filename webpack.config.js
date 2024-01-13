@@ -32,7 +32,7 @@ module.exports = {
       patterns: [
         {
           from: "views",
-          to: path.resolve(__dirname, "dist/dist", "views"),
+          to: path.resolve(__dirname, "dist", "views"),
         },
       ],
     }),

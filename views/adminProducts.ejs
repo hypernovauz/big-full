@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <nav class="navbar bg-body-tertiary">
+  <nav class="navbar bg-body-tertiary bg-light">
     <div class="container">
       <a class="navbar-brand" href="/dashboard" style="font-weight: bold; color: black; font-size: 24px">
         Mahsulotlarni boshqarish paneli
@@ -24,6 +24,9 @@
   <div class="container">
     <br />
     <button class="btn btn-primary mb-3" onclick="openAddModal()" style="font-weight: bold">
+      <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+      </svg>
       Yangi mahsulot qo'shish
     </button>
     <table class="table table-bordered table-hover">
@@ -54,10 +57,16 @@
             <td>
               <button class="btn btn-info btn-sm" style="font-weight: bold; color: white"
                 onclick="openEditModal('<%= product._id %>')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                  <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+                </svg>
                 Tahrirlash
               </button>
               <button class="btn btn-danger btn-sm" style="font-weight: bold"
                 onclick="deleteProduct('<%= product._id %>')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                  <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                </svg>
                 O'chirish
               </button>
             </td>
@@ -82,17 +91,17 @@
             <div class="mb-3">
               <label for="newName" class="form-label" style="font-weight: bold">Mahsulotlar nomi:</label>
               <select class="form-select" id="newName" name="newName">
-                <option value="dvuxtavr">Dvuxtavr</option>
-                <option value="shveller">Shvellir</option>
-                <option value="ugalok">Ugalok</option>
-                <option value="truba">Truba</option>
-                <option value="list">List</option>
-                <option value="armatura">Armatura</option>
-                <option value="kvadrat-profil">Kvadrat profil</option>
-                <option value="kvadrat-prut">Kvadrat prut</option>
-                <option value="prut">Prut</option>
-                <option value="palasa">Palasa</option>
-                <option value="planka">Planka</option>
+                <option value="Двухтавр">Двухтавр</option>
+                <option value="Швеллир">Швеллир</option>
+                <option value="Угалок">Угалок</option>
+                <option value="Труба">Труба</option>
+                <option value="Лист">Лист</option>
+                <option value="Арматура">Арматура</option>
+                <option value="Квадрат профил">Квадрат профил</option>
+                <option value="Квадрат прут">Квадрат прут</option>
+                <option value="Прут">Прут</option>
+                <option value="Паласа">Паласа</option>
+                <option value="Планка">Планка</option>
               </select>
             </div>
             <div class="mb-3">
@@ -110,6 +119,9 @@
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary" style="font-weight: bold">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+              </svg>
               Mahsulot qo'shish
             </button>
           </div>
@@ -131,17 +143,17 @@
             <div class="mb-3">
               <label for="updatedName" class="form-label" style="font-weight: bold">Mahsulotlar nomi:</label>
               <select class="form-select" id="updatedName" name="updatedName">
-                <option value="dvuxtavr">Dvuxtavr</option>
-                <option value="shveller">Shvellir</option>
-                <option value="ugalok">Ugalok</option>
-                <option value="truba">Truba</option>
-                <option value="list">List</option>
-                <option value="armatura">Armatura</option>
-                <option value="kvadrat-profil">Kvadrat profil</option>
-                <option value="kvadrat-prut">Kvadrat prut</option>
-                <option value="prut">Prut</option>
-                <option value="palasa">Palasa</option>
-                <option value="planka">Planka</option>
+                <option value="Двухтавр">Двухтавр</option>
+                <option value="Швеллир">Швеллир</option>
+                <option value="Угалок">Угалок</option>
+                <option value="Труба">Труба</option>
+                <option value="Лист">Лист</option>
+                <option value="Арматура">Арматура</option>
+                <option value="Квадрат профил">Квадрат профил</option>
+                <option value="Квадрат прут">Квадрат прут</option>
+                <option value="Прут">Прут</option>
+                <option value="Паласа">Паласа</option>
+                <option value="Планка">Планка</option>
               </select>
             </div>
             <div class="mb-3">
@@ -185,8 +197,7 @@
         .then((product) => {
           document.getElementById("updatedName").value = product.name;
           document.getElementById("updatedCategory").value = product.category;
-          document.getElementById("updatedQalinligi").value =
-            product.qalinligi;
+          document.getElementById("updatedQalinligi").value = product.qalinligi;
           document.getElementById("updatedPrice").value = product.price;
           document.getElementById(
             "editForm"
